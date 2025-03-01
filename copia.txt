@@ -1,0 +1,243 @@
+/src
+  ├── /configs
+  │   ├── hbs.js
+  ├── /controllers
+  │   ├── productController.js  👈 Separa la lógica HTTP
+  ├── /db
+  │   ├── products.json
+  ├── /managers
+  │   ├── productManager.js  👈 Separa la lógica de negocio
+  ├── /routes
+  │   ├── productsRoutes.js  👈 Define las rutas de productos
+  ├── /sockets
+  │   ├── websocket.js
+  ├── /views
+  │   ├── home.hbs
+  │   ├── realTimeProducts.hbs
+  ├── app.js
+  ├── index.js
+
+
+
+
+const fs = require('fs');
+const path = require('path');
+
+const productsFilePath = path.join(__dirname, '../db/products.json');
+
+const productManager = {
+  db: productsFilePath,
+  products: [],
+  id: 1,
+
+  getAll() {
+    try {
+      if (fs.existsSync(this.db)) {
+        const products = fs.readFileSync(this.db, 'utf-8');
+        this.products = JSON.parse(products) || [];
+
+        this.id = this.products.length > 0 
+          ? Math.max(...this.products.map(p => p.id)) + 1 
+          : 1;
+
+        return this.products;
+      } else {
+        this.products = [];
+        this.id = 1;
+        fs.writeFileSync(this.db, JSON.stringify([]));
+      }
+      return this.products;
+    } catch (error) {
+      console.error("❌ Error al leer los productos:", error);
+      return [];
+    }
+  },
+
+  save() {
+    try {
+      fs.writeFileSync(this.db, JSON.stringify(this.products, null, 2));
+    } catch (error) {
+      console.error("❌ Error al guardar productos:", error);
+    }
+  },
+
+  getById(id) {
+    return this.products.find(product => product.id === id) || { error: "Producto no encontrado" };
+  },
+
+  addProduct(title, description, code, price, stock, category, thumbnail) {
+    if (!title || !description || !code || !price || !stock || !category || !thumbnail) {
+      return { error: "Faltan datos" };
+    }
+
+    const newProduct = {
+      id: this.id++,
+      title,
+      description,
+      code,
+      price,
+      status: true,
+      stock,
+      category,
+      thumbnail,
+    };
+
+    this.products.push(newProduct);
+    this.save();
+    return newProduct;
+  },
+
+  deleteProduct(id) {
+    const index = this.products.findIndex((product) => product.id === id);
+    if (index === -1) return { error: "Producto no encontrado" };
+
+    const deleted = this.products.splice(index, 1);
+    this.save();
+    return { success: "Producto eliminado correctamente", deleted };
+  }
+};
+
+// Cargar productos al inicio
+productManager.getAll();
+
+module.exports = productManager;
+
+
+
+
+
+
+
+
+
+const productManager = require('../managers/productManager');
+
+const productController = {
+  getProducts: (req, res) => {
+    const products = productManager.getAll();
+    res.json(products);
+  },
+
+  
+
+  createProduct: (req, res) => {
+    const { title, description, code, price, stock, category, thumbnail } = req.body;
+    const newProduct = productManager.addProduct(title, description, code, price, stock, category, thumbnail);
+
+    if (newProduct.error) {
+      return res.status(400).json(newProduct);
+    }
+
+    res.status(201).json(newProduct);
+  },
+
+  deleteProduct: (req, res) => {
+    const id = parseInt(req.params.id);
+    const result = productManager.deleteProduct(id);
+
+    if (result.error) {
+      return res.status(404).json(result);
+    }
+
+    res.json(result);
+  }
+};
+
+module.exports = productController;
+
+
+
+
+
+
+
+
+const express = require('express');
+const productController = require('../controllers/productController');
+
+const router = express.Router();
+
+router.get('/', productController.getProducts);
+router.get('/:id', productController.getProductById);
+router.post('/', productController.createProduct);
+router.delete('/:id', productController.deleteProduct);
+
+module.exports = router;
+
+
+
+
+
+
+
+const express = require('express');
+const configureHbs = require('./configs/hbs');
+const productsRoutes = require('./routes/productsRoutes');
+
+const app = express();
+
+// Configurar Handlebars
+configureHbs(app);
+
+// Middleware
+app.use(express.json());  // Para recibir JSON en los POST
+app.use(express.urlencoded({ extended: true }));  // Para recibir datos de formularios
+app.use(express.static('public'));  // Archivos estáticos (CSS, JS, imágenes)
+
+// Rutas
+app.use('/api/products', productsRoutes);
+
+module.exports = app;
+
+
+
+
+
+
+
+
+const http = require('http');
+const app = require('./app');
+const { initSocket } = require('./sockets/websocket');
+
+const server = http.createServer(app);
+
+// Iniciar WebSockets
+initSocket(server);
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`🚀 Servidor en http://localhost:${PORT}`);
+});
+
+
+
+
+
+
+
+
+ getProductById(id) {
+    try {
+      const product = this.products.find((product) => product.id === id);
+      return product ? product : { error: "Producto no encontrado" };
+    } catch (error) {
+      console.error("Error al buscar producto:", error.message);
+      return { error: "Error al buscar producto" };
+    }
+  }
+
+  updateProduct(id, updatedFields) {
+    try {
+      const index = this.products.findIndex((product) => product.id === id);
+      if (index !== -1) {
+        this.products[index] = { ...this.products[index], ...updatedFields };
+        this.saveProducts();
+        return this.products[index];
+      }
+      return { error: "Producto no encontrado" };
+    } catch (error) {
+      console.error("Error al actualizar producto:", error.message);
+      return { error: "No se pudo actualizar el producto" };
+    }
+  }

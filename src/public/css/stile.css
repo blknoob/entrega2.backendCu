@@ -1,0 +1,60 @@
+/* Contenedor de productos */
+#productList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Estilos de la tarjeta */
+.card {
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  text-align: center;
+  background-color: #fff;
+  padding: 15px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 2px solid #ddd;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botón de eliminar */
+button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: darkred;
+}
