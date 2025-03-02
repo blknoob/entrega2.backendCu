@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const express = require("express");
 
 class ProductManager {
   constructor() {
@@ -72,7 +71,7 @@ class ProductManager {
       return this.products;
     } catch (error) {
       console.error("Error al obtener productos:", error.message);
-      return { error: "No se pudieron obtener los productos" };
+      return [];
     }
   }
 

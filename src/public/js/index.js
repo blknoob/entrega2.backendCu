@@ -5,14 +5,13 @@ socket.on("connect", () => {
   console.log("🔗 Conectado al servidor de WebSocket");
 });
 
-
-
-
 function renderProducts(products) {
+  console.log("📦 Productos recibidos:", products);
   const list = document.getElementById("productList");
   list.innerHTML = ""; // Limpiar el contenedor antes de actualizarlo
 
   products.forEach((product) => {
+    console.log("📦 Dibujando producto:", product);
     list.innerHTML += `
       <div class="card">
         <img src="${product.thumbnail}" alt="${product.title}">
@@ -33,7 +32,6 @@ socket.on("products", (products) => {
   console.log("📦 Productos recibidos vía WebSocket:", products);
   renderProducts(products);
 });
-
 
 // Enviar nuevo producto al servidor
 document.getElementById("productForm").addEventListener("submit", (e) => {

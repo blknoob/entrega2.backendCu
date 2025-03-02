@@ -1,18 +1,3 @@
 <h1>Productos</h1>
 
-<div id="productList">
-  {{#each products}}
-    <div class="card">
-      <img src="{{thumbnail}}" alt="{{title}}">
-      <div class="card-content">
-        <h3>{{title}}</h3>
-        <p>{{description}}</p>
-        <p><strong>Precio:</strong> ${{price}}</p>
-        <p><strong>Stock:</strong> {{stock}}</p>
-        <button onclick="deleteProduct({{id}})">🗑 Eliminar</button>
-      </div>
-    </div>
-  {{/each}}
-</div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/index.js"></script>
+<div id="productList"></div>

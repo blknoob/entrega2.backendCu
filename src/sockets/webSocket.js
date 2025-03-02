@@ -1,5 +1,5 @@
-const ProductManager = require("../managers/productManager");
-const productManager = new ProductManager();
+// const ProductManager = require("../managers/productManager");
+// const productManager = new ProductManager();
 const { Server } = require("socket.io");
 
 const configureSocket = (server) => {
