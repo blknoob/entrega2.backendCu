@@ -5,9 +5,10 @@ socket.on("connect", () => {
   console.log("🔗 Conectado al servidor de WebSocket");
 });
 
-// Capturar productos actualizados y mostrarlos en tarjetas (cards)
-socket.on("products", (products) => {
-  console.log("📦 Productos recibidos:", products);
+
+
+
+function renderProducts(products) {
   const list = document.getElementById("productList");
   list.innerHTML = ""; // Limpiar el contenedor antes de actualizarlo
 
@@ -25,7 +26,14 @@ socket.on("products", (products) => {
       </div>
     `;
   });
+}
+
+// Capturar productos actualizados desde WebSocket
+socket.on("products", (products) => {
+  console.log("📦 Productos recibidos vía WebSocket:", products);
+  renderProducts(products);
 });
+
 
 // Enviar nuevo producto al servidor
 document.getElementById("productForm").addEventListener("submit", (e) => {

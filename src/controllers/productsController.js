@@ -34,8 +34,8 @@ const productsController = {
         title,
         description,
         code,
-        price,
-        stock,
+        Number(price), // Convertir a número
+        Number(stock), // Convertir a número
         category,
         thumbnail
       );
