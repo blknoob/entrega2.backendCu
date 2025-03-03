@@ -1,10 +1,16 @@
+
+
 const express = require('express');
 const router = express.Router();
 
-const productsRoutes = require('./productsRoutes');
+router.get('/products', (req, res) => {
+  res.render("partials/home");
+} 
+);
 
-router.use('/products', productsRoutes);
+router.get('/realtimeproducts', (req, res) => {
+  res.render('partials/realtimeproducts');
+} 
+);
 
 module.exports = router;
-
-

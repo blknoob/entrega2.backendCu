@@ -8,11 +8,11 @@ function handlebarsConfig(app) {
       extname: ".hbs",
       defaultLayout: "main",
       // layoutsDir: path.join(__dirname, "../views/layouts"),
-      partialsDir: path.join(__dirname, "../views/partials"),
+      partialsDir: path.join(__dirname, "..", "views", "partials"),
     })
   );
   app.set("view engine", "hbs");
-  app.set("views", path.join(__dirname, "../views"));
+  app.set("views", path.join(__dirname, "..", "views"));
 }
 
 module.exports = handlebarsConfig;

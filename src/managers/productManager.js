@@ -53,7 +53,7 @@ class ProductManager {
         status: true,
         stock,
         category,
-        thumbnail,
+        thumbnail: `/images/${thumbnail}`,
       };
       this.products.push(newProduct);
       this.saveProducts();

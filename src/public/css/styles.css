@@ -58,3 +58,19 @@ button {
 button:hover {
   background-color: darkred;
 }
+
+#productContainer {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto; 
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  min-width: 200px; 
+  background: #f9f9f9;
+  text-align: center;
+}

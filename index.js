@@ -2,7 +2,7 @@ const http = require("http");
 const app = require("./src/app.js");
 const configureSocket = require("./src/sockets/webSocket");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 const server = http.createServer(app);
 
 configureSocket(server); 
