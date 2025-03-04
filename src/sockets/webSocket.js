@@ -11,7 +11,7 @@ const configureSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("🔌 Nuevo cliente conectado!");
+    console.log("Cliente conectado");
 
     socket.emit("products", productManager.getProducts());
 

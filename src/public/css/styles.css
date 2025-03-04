@@ -1,5 +1,105 @@
-/* Contenedor de productos */
-#productList {
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.header {
+  background-color: #83b168;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #53885e;
+  padding: 4;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: auto;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.btn-add {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.btn-add:hover {
+  background-color: #218838;
+}
+
+.btn-delete {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px;
+}
+
+.btn-delete:hover {
+  background-color: darkred;
+}
+
+.product-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -7,7 +107,6 @@
   padding: 20px;
 }
 
-/* Estilos de la tarjeta */
 .card {
   width: 250px;
   border-radius: 10px;
@@ -16,11 +115,12 @@
   text-align: center;
   background-color: #fff;
   padding: 15px;
-  transition: 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
   transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card img {
@@ -37,6 +137,7 @@
 .card h3 {
   margin: 10px 0;
   font-size: 18px;
+  color: #333;
 }
 
 .card p {
@@ -44,33 +145,42 @@
   color: #555;
 }
 
-/* Botón de eliminar */
-button {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-button:hover {
-  background-color: darkred;
-}
-
-#productContainer {
+.product-list-container {
   display: flex;
-  gap: 15px;
-  overflow-x: auto; 
-  padding: 10px;
-  white-space: nowrap;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px;
 }
 
 .product-item {
   border: 1px solid #ddd;
-  padding: 10px;
-  min-width: 200px; 
+  padding: 15px;
+  min-width: 220px;
   background: #f9f9f9;
   text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-item h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.product-item p {
+  font-size: 14px;
+  color: #555;
 }

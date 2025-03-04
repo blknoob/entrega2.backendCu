@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Precio:</strong> $${product.price}</p>
           <p><strong>Stock:</strong> ${product.stock}</p>
           <p><strong>Categoría:</strong> ${product.category}</p>
-          <button onclick="deleteProduct(${product.id})">🗑 Eliminar</button>
+          <button class="btn btn-delete" onclick="deleteProduct(${product.id})">Eliminar</button>
+
         `;
         container.appendChild(productItem);
       });
